@@ -40,7 +40,7 @@ void setup() {
 }
 
 void loop() {
-  int button = digitalRead(2);    // 버튼 핀번호(2) 정의 
+  int button = digitalRead(2);    // 버튼 상태(LOW = 0, HIGH = 1)저장
   
   UD_GreOn();                     // 위쪽, 아래쪽 신호 변경
   
@@ -66,15 +66,12 @@ void UD_GreOn(){
   digitalWrite(U_GRE, HIGH); digitalWrite(D_GRE, HIGH); // 위쪽, 아래쪽 초록불 on
   digitalWrite(R_RED, HIGH); digitalWrite(L_RED, HIGH); // 왼쪽, 오른쪽 빨간불 on
   digitalWrite(R_GRE, LOW); digitalWrite(L_GRE, LOW);   // 왼쪽, 오른쪽 초록불 off
-  digitalWrite(U_RED, LOW); digitalWrite(D_RED, LOW);   // 위쪽, 아래쪽 빨간불 off
 }
 
 void LR_GreOn() {
   digitalWrite(U_RED, HIGH); digitalWrite(D_RED, HIGH); // 위쪽, 아래쪽 빨간불 on
   digitalWrite(R_GRE, HIGH); digitalWrite(L_GRE, HIGH); // 왼쪽, 오른쪽 초록불 on
   digitalWrite(R_RED, LOW); digitalWrite(L_RED, LOW);   // 왼쪽, 오른쪽 빨간불 off
-  digitalWrite(U_GRE, LOW); digitalWrite(D_GRE, LOW);   // 위쪽, 아래쪽 초록불 off
-  
 }
 
 void UD_Blink() {
@@ -96,5 +93,3 @@ void LR_Blink() {
     delay(LR_BlinkT);
     }
 }
-
-
