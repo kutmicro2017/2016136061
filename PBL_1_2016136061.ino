@@ -40,7 +40,7 @@ void setup() {
 }
 
 void loop() {
-  int button = digitalRead(2);    // 버튼 상태(LOW = 0, HIGH = 1)저장
+  int button = digitalRead(2);    // 버튼 상태 저장(LOW = 0, HIGH = 1)
   
   UD_GreOn();                     // 위쪽, 아래쪽 신호 변경
   
@@ -48,15 +48,15 @@ void loop() {
     delay(3000);                  // 딜레이 3초
     UD_Blink();                   // 위쪽, 아래쪽 노란불 점멸
     LR_GreOn();                   // 왼쪽, 오른쪽 신호 변경
-    delay(15000);                 // 초록불 점등 시간(15초)
+    delay(interval*2);            // 초록불 점등 시간(10초)
     LR_Blink();                   // 왼쪽, 오른쪽 노란불 점멸
     prevT = millis();             // 현재 시간을 이전 시간 변수에 저장
   }
   
-  if(millis() - prevT >= 3*interval) {    // ( 현재 시간 - 이전 시간 ) >= 초록불 점등 시간(15초)
+  if(millis() - prevT >= 2*interval) {    // ( 현재 시간 - 이전 시간 ) >= 초록불 점등 시간(15초)
     UD_Blink();                   // 위쪽, 아래쪽 노란불 점멸
     LR_GreOn();                   // 왼쪽, 오른쪽 신호 변경
-    delay(15000);                 // 초록불 점등 시간(15초)
+    delay(interval*2);            // 초록불 점등 시간(10초)
     LR_Blink();                   // 왼쪽, 오른쪽 노란불 점멸
     prevT = millis();             // 현재 시간을 이전 시간 변수에 저장
   }
@@ -66,19 +66,21 @@ void UD_GreOn(){
   digitalWrite(U_GRE, HIGH); digitalWrite(D_GRE, HIGH); // 위쪽, 아래쪽 초록불 on
   digitalWrite(R_RED, HIGH); digitalWrite(L_RED, HIGH); // 왼쪽, 오른쪽 빨간불 on
   digitalWrite(R_GRE, LOW); digitalWrite(L_GRE, LOW);   // 왼쪽, 오른쪽 초록불 off
+  digitalWrite(U_RED, LOW); digitalWrite(D_RED, LOW); // 위쪽, 아래쪽 빨간불 off
 }
 
 void LR_GreOn() {
   digitalWrite(U_RED, HIGH); digitalWrite(D_RED, HIGH); // 위쪽, 아래쪽 빨간불 on
   digitalWrite(R_GRE, HIGH); digitalWrite(L_GRE, HIGH); // 왼쪽, 오른쪽 초록불 on
   digitalWrite(R_RED, LOW); digitalWrite(L_RED, LOW);   // 왼쪽, 오른쪽 빨간불 off
+  digitalWrite(U_GRE, LOW); digitalWrite(D_GRE, LOW); // 위쪽, 아래쪽 초록불 off
 }
 
 void UD_Blink() {
   digitalWrite(U_GRE, LOW); digitalWrite(D_GRE, LOW);   // 위쪽, 아래쪽 초록불 off
   for(int i = 0; i < 5; i++){                           // 위쪽, 아래쪽 노란불 점멸
     digitalWrite(U_YEL, HIGH); digitalWrite(D_YEL, HIGH);
-    delay(UD_BlinkT);                                   // 점멸 간격(1초)
+    delay(UD_BlinkT);                                   // 점멸 간격(2초)
     digitalWrite(U_YEL, LOW); digitalWrite(D_YEL, LOW);
     delay(UD_BlinkT);
     }
@@ -88,7 +90,7 @@ void LR_Blink() {
   digitalWrite(R_GRE, LOW); digitalWrite(L_GRE, LOW);   // 왼쪽, 오른쪽 초록불 off
   for(int i = 0; i < 5; i++){                           // 왼쪽, 오른쪽 노란불 점멸(5회)
     digitalWrite(R_YEL, HIGH); digitalWrite(L_YEL, HIGH);
-    delay(LR_BlinkT);                                   // 점멸 간격(1초)
+    delay(LR_BlinkT);                                   // 점멸 간격(2초)
     digitalWrite(R_YEL, LOW); digitalWrite(L_YEL, LOW);
     delay(LR_BlinkT);
     }
